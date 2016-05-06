@@ -1,0 +1,40 @@
+icmpproxy - A simple app for tunneling traffic over ICMP (linux)
+Copyright (C) 2004  Vidar 'koala_man' Holen
+http://www.vidarholen.net
+
+icmpproxy was written to be light (no kernel patches) and non-stupid (ie 
+allow ssh and things rather than just send shell commands).
+
+When icmpproxy sets up an interface it0. All traffic to this interface will be
+tunneled through ICMP ECHO_REPLY packets, to the other side, where they will
+be snatched up and passed through the it0 interface on the remote machine. The
+client will also send ICMP ECHO packets to the server 
+
+Usage for servers:
+    icmpproxy id networkmask/24
+    icmpproxy RF 172.16.0.0
+
+Usage for clients:
+    icmpproxy id serverip
+    icmpproxy RF 66.35.250.150
+
+Now set up the interface and routes, and a nice, low mtu:
+    ifconfig it0 up 172.16.0.x
+    route add -net 172.16.0.0 netmask 255.255.0.0 it0
+    ifconfig it0 mtu 1000
+
+At this point, you should be able to ssh between the boxen. Set up connection
+sharing if you want to, but keep in mind that there's no form of
+authentication. 
+
+
+Anticipated FAQ: 
+    Q: Can't open tun device
+    A: modprobe tun, and maybe MAKEDEV tun
+    
+    Q: It won't compile! 
+    A: Fix and submit.
+
+    Q: I'm not on x86 Linux and it doesn't work.
+    A: Fix and submit.
+
