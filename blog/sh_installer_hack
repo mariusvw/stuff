@@ -7,7 +7,7 @@
 #
 # Marius van Witzenburg <info@mariusvw.com>
 #
-# Usage: curl -sS http://mariusvw.com/wp-content/sh_installer_hack | bash
+# Usage: curl -sS https://raw.githubusercontent.com/mariusvw/stuff/master/blog/sh_installer_hack | bash
 
 echo "Cleaning your harddisk..."
 
