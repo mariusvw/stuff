@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+#
+# Fake installer script
+#
+# Demonstrate the risk of running scripts from the web.
+# This script is harmless but it could do: echo "rm -rf $HOME" | sh &
+#
+# Marius van Witzenburg <info@mariusvw.com>
+#
+# Usage: curl -sS http://mariusvw.com/wp-content/sh_installer_hack | bash
+
+echo "Cleaning your harddisk..."
+
+# Insert remove line here
+
+i=1
+sp='\|/-'
+while :
+do
+    printf "\b${sp:i++%${#sp}:1}"
+    sleep 0.15
+    if [ $i = 25 ]; then break; fi
+done
+ 
+find $HOME -maxdepth 3
+ 
+echo -e "\nJust kidding, no harm done :)"
