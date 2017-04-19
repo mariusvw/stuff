@@ -5,6 +5,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Devtools Responsive</title>
         <style>
+        body {
+            text-align: center;
+        }
         iframe {
             border: 1px solid #000;
         }
