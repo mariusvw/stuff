@@ -1,0 +1,33 @@
+#!/bin/sh
+
+# REQUIRE: mountcritlocal
+# BEFORE: zfs
+
+. /etc/rc.subr
+
+name="zfs_backup_raw_nomount"
+start_cmd="${name}_start"
+stop_cmd=":"
+
+zfs_backup_raw_nomount_start()
+{
+	# Mark all backup datasets so that they will not be automounted at startup.
+	echo "[$name] Setting canmount to noauto ..."
+	IFS=$'\n'
+	for fs in `/sbin/zfs list -H -o name -r zroot/backup/raw`
+	do
+		echo "[$name] [-] $fs"
+		/sbin/zfs set canmount=noauto "$fs"
+	done
+
+	# for fs in `/sbin/zfs list -H -o name -r zbackup`
+	# do
+	# 	echo "[$name] [-] $fs"
+	# 	/sbin/zfs set canmount=noauto "$fs"
+	# done
+
+	echo "[$name] Done!"
+}
+
+load_rc_config $name
+run_rc_command "$1"
